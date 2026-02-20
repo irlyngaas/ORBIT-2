@@ -14,20 +14,21 @@
 [ -z $JOBSIZE ] && JOBSIZE=$SLURM_JOB_NUM_NODES
 
 
-source ~/miniconda3/etc/profile.d/conda.sh
+#source ~/miniconda3/etc/profile.d/conda.sh
+eval "$(/lustre/orion/stf006/proj-shared/irl1/miniforge3/bin/conda shell.bash hook)"
 
 
 module load PrgEnv-gnu
-module load rocm/6.3.1
+module load rocm/6.4.0
 module load craype-accel-amd-gfx90a
 
 module unload darshan-runtime
 module unload libfabric
 
 
-#eval "$(/lustre/orion/world-shared/stf218/atsaris/env_test_march/miniconda/bin/conda shell.bash hook)"
 
-conda activate /lustre/orion/lrn036/world-shared/xf9/torch27
+#conda activate /lustre/orion/lrn036/world-shared/xf9/torch27
+conda activate orbit-e2s
 
 #source activate /lustre/orion/lrn036/world-shared/xf9/torch27-rocm63
 #conda activate /lustre/orion/lrn036/world-shared/xf9/torch26
@@ -85,5 +86,6 @@ export LD_PRELOAD=/lib64/libgcc_s.so.1:/usr/lib64/libstdc++.so.6
 # 3. With additional options (index, variable, etc.):
 # time srun -n $((SLURM_JOB_NUM_NODES*8)) python ./visualize.py ../configs/interm_8m_ft.yaml --checkpoint /path/to/custom/checkpoint.ckpt --index 10 --variable 2m_temperature_max
 
-time srun -n $((SLURM_JOB_NUM_NODES*8)) python ./visualize.py ../configs/interm_8m_ft.yaml
+#time srun -n $((SLURM_JOB_NUM_NODES*8)) python ./visualize.py ../configs/interm_8m_ft.yaml
+time srun -n $((SLURM_JOB_NUM_NODES*1)) python ./visualize.py ../configs/global_9.5m_precipitation.yaml --checkpoint /lustre/orion/lrn036/world-shared/xf9/downscale_checkpoint/global-finetune/9.5m_global_precipitation.ckpt --index 0 --variable total_precipitation_24hr
 
