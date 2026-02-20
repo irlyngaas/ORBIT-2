@@ -87,5 +87,6 @@ export LD_PRELOAD=/lib64/libgcc_s.so.1:/usr/lib64/libstdc++.so.6
 # time srun -n $((SLURM_JOB_NUM_NODES*8)) python ./visualize.py ../configs/interm_8m_ft.yaml --checkpoint /path/to/custom/checkpoint.ckpt --index 10 --variable 2m_temperature_max
 
 #time srun -n $((SLURM_JOB_NUM_NODES*8)) python ./visualize.py ../configs/interm_8m_ft.yaml
-time srun -n $((SLURM_JOB_NUM_NODES*1)) python ./visualize.py ../configs/global_9.5m_precipitation.yaml --checkpoint /lustre/orion/lrn036/world-shared/xf9/downscale_checkpoint/global-finetune/9.5m_global_precipitation.ckpt --index 0 --variable total_precipitation_24hr
+time srun -n $((SLURM_JOB_NUM_NODES*8)) python ./visualize.py ../configs/global_9.5m_precipitation.yaml --checkpoint /lustre/orion/lrn036/world-shared/xf9/downscale_checkpoint/global-finetune/9.5m_global_precipitation.ckpt --index 0 --variable total_precipitation_24hr
+#time srun -n $((SLURM_JOB_NUM_NODES*8)) python ./visualize.py ../configs/global_126m_precipitation.yaml --checkpoint /lustre/orion/stf006/proj-shared/irl1/earth2studio/ORBIT-2-e2s/global_126m_precipitation.ckpt --index 0 --variable total_precipitation_24hr
 
