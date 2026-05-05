@@ -6,8 +6,8 @@ from climate_learn.utils.dist_functions import F_Identity_B_AllReduce, F_Identit
 from climate_learn.utils.fused_attn import FusedAttn
 import torch.distributed as dist
 
-import xformers
-from xformers.components.attention.core import scaled_dot_product_attention as xformers_sdpa
+#import xformers
+#from xformers.components.attention.core import scaled_dot_product_attention as xformers_sdpa
 
 class Attention(nn.Module):
     def __init__(
