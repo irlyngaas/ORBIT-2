@@ -1,9 +1,15 @@
-import mpi4py
+try:
+    import mpi4py
 
-mpi4py.rc.thread_level = "serialized"
-mpi4py.rc.threads = False
+    mpi4py.rc.thread_level = "serialized"
+    mpi4py.rc.threads = False
 
-from mpi4py import MPI
+    from mpi4py import MPI
+except ImportError:
+    raise ImportError(
+        "mpi4py is required for distributed training with DDStore. "
+        "Install it with: pip install climate_learn[distributed]"
+    )
 import numpy as np
 
 import torch

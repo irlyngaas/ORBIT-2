@@ -52,7 +52,7 @@ def load_model_module(
 
 
 
-    if torch.distributed.get_rank()==0:
+    if not torch.distributed.is_initialized() or torch.distributed.get_rank()==0:
         print("Inside load_model_module model_kwargs",model_kwargs,flush=True)
         print("architecture is ",architecture,"model is",model,flush=True)
 

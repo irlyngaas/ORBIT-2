@@ -23,7 +23,11 @@ from .iterdataset import (
 from .processing.era5_constants import PRECIP_VARIABLES
 from .precipmodule import LogTransform
 
-from climate_learn.dist.distdataset import *
+try:
+    from climate_learn.dist.distdataset import *
+    _HAS_DISTDATASET = True
+except ImportError:
+    _HAS_DISTDATASET = False
 
 
 def calculate_tile_overlap(overlap):
@@ -415,6 +419,11 @@ class IterDataModule(torch.nn.Module):
         # print("use_ddstore is :", use_ddstore, flush=True)
 
         if use_ddstore:
+            if not _HAS_DISTDATASET:
+                raise ImportError(
+                    "mpi4py is required for DDStore distributed training. "
+                    "Install it with: pip install climate_learn[distributed]"
+                )
             ## assume: a GPU is mapped by the local rank
             gpu_id = int(os.getenv("SLURM_LOCALID", "0"))
             os.environ["FABRIC_IFACE"] = f"hsn{gpu_id//2}"

@@ -164,7 +164,7 @@ class PERCEPTUAL(Metric):
 
 
 
-        if torch.distributed.get_rank()==0:
+        if not torch.distributed.is_initialized() or torch.distributed.get_rank()==0:
             print("inside PERCEPTUAL after FSDP","self.loss_fn",self.loss_fn,flush=True)
 
         super().__init__(aggregate_only, metainfo)

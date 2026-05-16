@@ -86,7 +86,7 @@ def interpolate_pos_embed(model, checkpoint_model, new_size=(64, 128)):
         # print (orig_size)
         # print (new_size)
         if orig_size[0] != new_size[0]:
-            if torch.distributed.get_rank()==0:
+            if not torch.distributed.is_initialized() or torch.distributed.get_rank()==0:
                 print("Checkpoint interpolate PEs from %dx%d to %dx%d" % (orig_size[0], orig_size[1], new_size[0], new_size[1]))
             pos_tokens = pos_embed_checkpoint.reshape(-1, orig_size[0], orig_size[1], embedding_size).permute(
                 0, 3, 1, 2

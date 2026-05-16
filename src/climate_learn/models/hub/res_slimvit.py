@@ -156,13 +156,6 @@ class Res_Slim_ViT(nn.Module):
             self.num_patches = img_size[0] * img_size[1]// (self.patch_size **2)
        
  
-        if torch.distributed.get_rank()==0:
-            print("updated res is ",res,"img_size",img_size,"in_channels",in_channels,"out_channels",out_channels,"num_patches",self.num_patches,flush=True)
-
-
-        if torch.distributed.get_rank()==0:
-            print("model.pos_embed.shape",self.pos_embed.shape,flush=True)
-
 
     def unpatchify(self, x: torch.Tensor, scaling =1, out_channels=1):
         """
